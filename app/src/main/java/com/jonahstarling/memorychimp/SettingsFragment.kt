@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
-class AboutFragment: DialogFragment() {
+class SettingsFragment: DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_about, container, false)
+        inflater.inflate(R.layout.fragment_settings, container, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +22,8 @@ class AboutFragment: DialogFragment() {
     }
 
     companion object {
-        val TAG = AboutFragment::class.java.simpleName
+        val TAG = SettingsFragment::class.java.simpleName
 
-        fun newInstance() = AboutFragment()
+        fun newInstance() = SettingsFragment()
     }
 }

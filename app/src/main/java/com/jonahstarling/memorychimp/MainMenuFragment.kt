@@ -3,7 +3,6 @@ package com.jonahstarling.memorychimp
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_main_menu.*
+import kotlinx.android.synthetic.main.menu_footer_layout.*
 import kotlinx.android.synthetic.main.menu_layout.*
 import kotlinx.android.synthetic.main.title_layout.*
 
@@ -41,6 +41,9 @@ class MainMenuFragment: Fragment() {
         impossibleButton.setOnClickListener { impossibleDifficultySelected() }
 
         playButton.setOnClickListener { animateMainMenuScreenOut() }
+
+        aboutButton.setOnClickListener { navigateToAboutFragment() }
+        settingsButton.setOnClickListener { navigateToSettingsFragment() }
 
         view.viewTreeObserver.addOnGlobalLayoutListener(object:
             ViewTreeObserver.OnGlobalLayoutListener {
@@ -170,11 +173,15 @@ class MainMenuFragment: Fragment() {
     }
 
     fun navigateToGameFragment() {
-        (activity as MainActivity).replaceFragment(GameFragment.newInstance(), GameFragment.TAG)
+        (activity as MainActivity).addFragment(GameFragment.newInstance(), GameFragment.TAG)
     }
 
-    fun navigateToAboutFragment() {
-        (activity as MainActivity).replaceFragment(AboutFragment.newInstance(), AboutFragment.TAG)
+    private fun navigateToAboutFragment() {
+        (activity as MainActivity).addFragment(AboutFragment.newInstance(), AboutFragment.TAG)
+    }
+
+    private fun navigateToSettingsFragment() {
+        (activity as MainActivity).addFragment(SettingsFragment.newInstance(), SettingsFragment.TAG)
     }
 
     companion object {

@@ -3,6 +3,7 @@ package com.jonahstarling.memorychimp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,14 @@ class MainActivity : AppCompatActivity() {
     fun replaceFragment(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment, tag)
+            .commit()
+    }
+
+    fun addFragment(fragment: Fragment, tag: String) {
+        // TODO add animation
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment, tag)
+            .addToBackStack(tag)
             .commit()
     }
 }
