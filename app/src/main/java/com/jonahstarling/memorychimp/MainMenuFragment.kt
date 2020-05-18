@@ -3,12 +3,14 @@ package com.jonahstarling.memorychimp
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.DecelerateInterpolator
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.fragment_main_menu.*
@@ -16,6 +18,8 @@ import kotlinx.android.synthetic.main.menu_layout.*
 import kotlinx.android.synthetic.main.title_layout.*
 
 class MainMenuFragment: Fragment() {
+
+    private var difficulty = Difficulties.easy
 
     private lateinit var titleAdapter: TitleAdapter
     private lateinit var titleLayoutManager: GridLayoutManager
@@ -30,6 +34,11 @@ class MainMenuFragment: Fragment() {
         titleLayoutManager = GridLayoutManager(activity, 6, GridLayoutManager.VERTICAL, false)
         titleGrid.adapter = titleAdapter
         titleGrid.layoutManager = titleLayoutManager
+
+        easyButton.setOnClickListener { easyDifficultySelected() }
+        mediumButton.setOnClickListener { mediumDifficultySelected() }
+        hardButton.setOnClickListener { hardDifficultySelected() }
+        impossibleButton.setOnClickListener { impossibleDifficultySelected() }
 
         playButton.setOnClickListener { animateMainMenuScreenOut() }
 
@@ -114,6 +123,50 @@ class MainMenuFragment: Fragment() {
             }
         })
         menuFooterAnimator.start()
+    }
+
+    private fun easyDifficultySelected() {
+        difficulty = Difficulties.easy
+        updateDifficultyStates(difficulty)
+    }
+
+    private fun mediumDifficultySelected() {
+        difficulty = Difficulties.medium
+        updateDifficultyStates(difficulty)
+    }
+
+    private fun hardDifficultySelected() {
+        difficulty = Difficulties.hard
+        updateDifficultyStates(difficulty)
+    }
+
+    private fun impossibleDifficultySelected() {
+        difficulty = Difficulties.impossible
+        updateDifficultyStates(difficulty)
+    }
+
+    private fun updateDifficultyStates(difficulty: Difficulty) {
+        if (difficulty.name == Difficulties.easy.name) toggleButtonOn(easyButton)
+        else toggleButtonOff(easyButton)
+
+        if (difficulty.name == Difficulties.medium.name) toggleButtonOn(mediumButton)
+        else toggleButtonOff(mediumButton)
+
+        if (difficulty.name == Difficulties.hard.name) toggleButtonOn(hardButton)
+        else toggleButtonOff(hardButton)
+
+        if (difficulty.name == Difficulties.impossible.name) toggleButtonOn(impossibleButton)
+        else toggleButtonOff(impossibleButton)
+    }
+
+    private fun toggleButtonOn(button: Button) {
+        button.setBackgroundColor(resources.getColor(R.color.colorAccent, activity?.theme))
+        button.setTextColor(resources.getColor(R.color.colorPrimary, activity?.theme))
+    }
+
+    private fun toggleButtonOff(button: Button) {
+        button.setBackgroundColor(resources.getColor(R.color.colorPrimaryDark, activity?.theme))
+        button.setTextColor(resources.getColor(R.color.colorText, activity?.theme))
     }
 
     fun navigateToGameFragment() {
