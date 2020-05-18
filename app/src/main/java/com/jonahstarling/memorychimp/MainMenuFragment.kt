@@ -1,5 +1,7 @@
 package com.jonahstarling.memorychimp
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +11,8 @@ import android.view.ViewTreeObserver
 import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.fragment_launch.*
-import kotlinx.android.synthetic.main.fragment_launch.titleLayout
 import kotlinx.android.synthetic.main.fragment_main_menu.*
+import kotlinx.android.synthetic.main.menu_layout.*
 import kotlinx.android.synthetic.main.title_layout.*
 
 class MainMenuFragment: Fragment() {
@@ -29,6 +30,8 @@ class MainMenuFragment: Fragment() {
         titleLayoutManager = GridLayoutManager(activity, 6, GridLayoutManager.VERTICAL, false)
         titleGrid.adapter = titleAdapter
         titleGrid.layoutManager = titleLayoutManager
+
+        playButton.setOnClickListener { animateMainMenuScreenOut() }
 
         view.viewTreeObserver.addOnGlobalLayoutListener(object:
             ViewTreeObserver.OnGlobalLayoutListener {
@@ -64,7 +67,7 @@ class MainMenuFragment: Fragment() {
         menuAnimator.start()
         val menuFooterAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
         menuFooterAnimator.duration = 400L
-        menuFooterAnimator.startDelay = 100L
+        menuFooterAnimator.startDelay = 200L
         menuFooterAnimator.interpolator = DecelerateInterpolator()
         menuFooterAnimator.addUpdateListener {
             menuFooterLayout.x = menuFooterStartX - (menuFooterStartX * it.animatedValue as Float)
@@ -73,7 +76,44 @@ class MainMenuFragment: Fragment() {
     }
 
     private fun animateMainMenuScreenOut() {
-        // TODO
+        val location = IntArray(2)
+        titleLayout.getLocationOnScreen(location)
+        val titleStartX: Int = location[0]
+        menuLayout.getLocationOnScreen(location)
+        val menuStartX: Int = location[0]
+        menuFooterLayout.getLocationOnScreen(location)
+        val menuFooterStartX: Int = location[0]
+
+
+        val titleAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
+        titleAnimator.duration = 400L
+        titleAnimator.interpolator = DecelerateInterpolator()
+        titleAnimator.addUpdateListener {
+            titleLayout.x = titleStartX - ((titleStartX - (0 - titleLayout.width)) * it.animatedValue as Float)
+        }
+        titleAnimator.start()
+        val menuAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
+        menuAnimator.duration = 400L
+        menuAnimator.startDelay = 100L
+        menuAnimator.interpolator = DecelerateInterpolator()
+        menuAnimator.addUpdateListener {
+            menuLayout.x = menuStartX - ((menuStartX - (0 - menuLayout.width)) * it.animatedValue as Float)
+        }
+        menuAnimator.start()
+        val menuFooterAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
+        menuFooterAnimator.duration = 400L
+        menuFooterAnimator.startDelay = 200L
+        menuFooterAnimator.interpolator = DecelerateInterpolator()
+        menuFooterAnimator.addUpdateListener {
+            menuFooterLayout.x = menuFooterStartX - ((menuFooterStartX - (0 - menuFooterLayout.width)) * it.animatedValue as Float)
+        }
+        menuFooterAnimator.addListener(object: AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                super.onAnimationEnd(animation)
+                navigateToGameFragment()
+            }
+        })
+        menuFooterAnimator.start()
     }
 
     fun navigateToGameFragment() {
