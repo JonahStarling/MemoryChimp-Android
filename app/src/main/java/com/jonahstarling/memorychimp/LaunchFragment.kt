@@ -49,13 +49,12 @@ class LaunchFragment: Fragment() {
         titleLayout.getLocationOnScreen(location)
         val titleOriginalX: Int = location[0]
 
-        val titleAnimator = ValueAnimator.ofFloat(1.0f, 0.0f)
+        val titleAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
         titleAnimator.duration = 400L
         titleAnimator.startDelay = 1400L
         titleAnimator.interpolator = AccelerateInterpolator()
         titleAnimator.addUpdateListener {
-            titleLayout.alpha = it.animatedValue as Float
-            titleLayout.x = titleOriginalX - ((titleOriginalX - (0 - titleLayout.width)) * (1 - it.animatedValue as Float))
+            titleLayout.x = titleOriginalX - ((titleOriginalX - (0 - titleLayout.width)) * it.animatedValue as Float)
         }
         titleAnimator.addListener(object: AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
@@ -74,39 +73,5 @@ class LaunchFragment: Fragment() {
         val TAG = LaunchFragment::class.java.simpleName
 
         fun newInstance() = LaunchFragment()
-    }
-}
-
-class TitleAdapter(private val context: Context, private val title: List<String>): RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
-        return TitleViewHolder(LayoutInflater.from(context).inflate(R.layout.cell_value, parent, false))
-    }
-
-    override fun getItemCount(): Int = title.size
-
-    override fun onBindViewHolder(holder: TitleViewHolder, position: Int) {
-        holder.letter.text = title[position]
-    }
-
-    class TitleViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val letter: TextView = view.cellText
-
-        init {
-            animateToBlock()
-        }
-
-        private fun animateToBlock() {
-            view.setBackgroundColor(Color.parseColor("#F0F0F0"))
-            view.background.alpha = 0
-            val letterAnimator = ValueAnimator.ofInt(0, 255)
-            letterAnimator.duration = 100L
-            letterAnimator.startDelay = 1000L + (Math.random() * 100).toLong()
-            letterAnimator.interpolator = AccelerateInterpolator()
-            letterAnimator.addUpdateListener {
-                view.background.alpha = letterAnimator.animatedValue as Int
-            }
-            letterAnimator.start()
-        }
     }
 }
