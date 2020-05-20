@@ -12,4 +12,7 @@
     <string name="learn_more_text">Interested in learning more about Tetsuro Matsuzawa\'s study? Click the button below to read a short pdf outlining the study.</string>
     <string name="learn_more_button">LEARN MORE</string>
     <string name="close">CLOSE</string>
+    <string name="high_scores_title">High Scores:</string>
+    <string name="fake_score">1234</string>
+    <string name="reset_scores">RESET SCORES</string>
 </resources>
