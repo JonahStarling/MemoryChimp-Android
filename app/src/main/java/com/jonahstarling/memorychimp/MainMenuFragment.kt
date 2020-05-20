@@ -177,7 +177,10 @@ class MainMenuFragment: Fragment() {
     }
 
     private fun navigateToAboutFragment() {
-        (activity as MainActivity).addFragment(AboutFragment.newInstance(), AboutFragment.TAG)
+        val aboutDialogFragment = AboutFragment.newInstance()
+        fragmentManager?.let {
+            aboutDialogFragment.show(it, AboutFragment.TAG)
+        }
     }
 
     private fun navigateToSettingsFragment() {
