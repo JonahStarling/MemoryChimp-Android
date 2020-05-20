@@ -8,7 +8,7 @@
     <string name="impossible">IMPOSSIBLE</string>
     <string name="play">PLAY</string>
     <string name="about_description">Memory Chimp is a game designed to replicate Tetsuro Matsuzawa\'s study of Chimp\'s Short Term Memory compared to humans.\n\nSelect a difficulty and prepare to be reminded that you may not be as quick as you thought. Your brain will try to rush to remember all of the number\'s locations but will ultimately fail. How far can you go? How many numbers can you remember? How quick can you memorize them?</string>
-    <string name="about_difficulties">Difficulties are as follows:\n\n<b>Easy:</b> 5 to 9 numbers with unlimited prep time\n<b>Medium:</b> 5 to 9 numbers with 3 seconds of prep time\n<b>Hard:</b> 5 to 9 numbers with 2 seconds of prep time\n<b>Impossible:</b> 5 to 9 numbers with 1 second of prep time</string>
+    <string name="about_difficulties">Difficulties are as follows:\n\nEasy: 5 to 9 numbers with unlimited prep time\nMedium: 5 to 9 numbers with 3 seconds of prep time\nHard: 5 to 9 numbers with 2 seconds of prep time\nImpossible: 5 to 9 numbers with 1 second of prep time</string>
     <string name="learn_more_text">Interested in learning more about Tetsuro Matsuzawa\'s study? Click the button below to read a short pdf outlining the study.</string>
     <string name="learn_more_button">LEARN MORE</string>
     <string name="close">CLOSE</string>
