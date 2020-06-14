@@ -30,7 +30,7 @@ class LaunchFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        titleAdapter = TitleAdapter(this.requireContext(), listOf("M","E","M","O","R","Y","C","H","I","M","P"))
+        titleAdapter = TitleAdapter(requireContext(), listOf("M","E","M","O","R","Y","C","H","I","M","P"))
         titleLayoutManager = GridLayoutManager(activity, 6, GridLayoutManager.VERTICAL, false)
         titleGrid.adapter = titleAdapter
         titleGrid.layoutManager = titleLayoutManager

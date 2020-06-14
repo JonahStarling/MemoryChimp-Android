@@ -173,7 +173,7 @@ class MainMenuFragment: Fragment() {
     }
 
     fun navigateToGameFragment() {
-        (activity as MainActivity).addFragment(GameFragment.newInstance(), GameFragment.TAG)
+        (activity as MainActivity).addFragment(GameFragment(difficulty), GameFragment.TAG)
     }
 
     private fun navigateToAboutFragment() {

@@ -12,20 +12,23 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.cell_value.view.*
+import kotlin.random.Random
 
 class GameAdapter(private val context: Context,
-                  private val gridSize: Int,
-                  private val startDelay: Long,
-                  private val boxesToTap: Int): RecyclerView.Adapter<GameAdapter.GameViewHolder>() {
+                  private val grid: Array<Int?>,
+                  private val startDelay: Long): RecyclerView.Adapter<GameAdapter.GameViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
         return GameViewHolder(LayoutInflater.from(context).inflate(R.layout.cell_value, parent, false), startDelay)
     }
 
-    override fun getItemCount(): Int = gridSize
+    override fun getItemCount(): Int = grid.size
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
-        // TODO - still haven't decided how I want to handle creating a level
+        grid[position]?.let {
+            holder.boxText.text = it.toString()
+            holder.animateToBlock()
+        }
     }
 
     class GameViewHolder(private val view: View, private val startDelay: Long) : RecyclerView.ViewHolder(view) {
@@ -33,14 +36,14 @@ class GameAdapter(private val context: Context,
 
         init {
             boxText.isEnabled = false
-            animateToBlock()
         }
 
-        private fun animateToBlock() {
+        fun animateToBlock() {
             view.setBackgroundColor(Color.parseColor("#F0F0F0"))
             view.background.alpha = 0
             val letterAnimator = ValueAnimator.ofInt(0, 255)
-            letterAnimator.duration = 100L
+            val animationDuration = 200L
+            letterAnimator.duration = animationDuration
             letterAnimator.startDelay = startDelay
             letterAnimator.interpolator = AccelerateInterpolator()
             letterAnimator.addUpdateListener {
